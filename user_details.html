@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="user_details_from.css">
+    <title>User Details</title>
+</head>
+<body>
+    <div class="container">
+        <h3>Step 1: Your details</h3>
+        <div class="col-1">
+            <p>Name :<input type="text" name="name" placeholder="first and last name"></p>
+        </div>
+        <div class="col-2">
+            <p>Email :<input type="email" name="email" id="email" placeholder="example@domain.com"></p>
+        </div>
+        <div class="col-3">
+            <p>Phone :<input type="number" name="phone" id="phone" placeholder="Eg. +447500000000"></p>
+        </div>
+        <h3>Step 2: Delivery address</h3>
+        <div class="col-4">
+            <p>Address  :</p>
+            <textarea name="address" id="address"></textarea>
+        </div>
+        <div class="col-5">
+            <p>Post code :<input type="number" name="postalcode" id="post_code"></p>
+        </div>
+        <div class="col-6">
+            <p>Country :<input type="text" name="country" id="country"></p>
+        </div>
+        <h3>Step 3: Card details</h3>
+        <div class="col-7">
+            <p>Card type :</p>
+            <label>
+                <input type="radio" name="cardType" id="visa">
+                <img src="images/visa.png" alt="Visa" class="card-icon visa"> 
+                <b>VISA</b>
+            </label>
+            <label>
+                <input type="radio" name="cardType" id="amex">
+                <img src="images/AmEx.png" alt="AmEx" class="card-icon AmEx">
+                <b>AmEx</b>
+            </label>
+            <label>
+                <input type="radio" name="cardType" id="mastercard">
+                <img src="images/mastercard-pngrepo-com.png" alt="Mastercard" class="card-icon Mastercard">
+                <b>Mastercard</b>
+            </label>
+        </div>        
+        <div class="col-8">
+            <p>Card Number :<input type="number" name="card_number" id="card_number"></p>
+        </div>
+        <div class="col-9">
+            <p>Security code :<input type="text" name="sucurity_code" id="securitycode"></p>
+        </div>
+        <div class="col-10">
+            <p>Name on card :<input type="text" name="card_name" id="card_name" placeholder="Exact name as on the card"></p>
+        </div>
+        <div class="submit-btn">
+            <button type="submit" name="buy">BUY IT!</button>
+        </div>
+    </div>
+</body>
+</html>
