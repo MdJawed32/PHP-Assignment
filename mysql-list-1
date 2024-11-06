@@ -1,0 +1,303 @@
+mysql> -- Show Databases?
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| assignment         |
+| autoshop           |
+| information_schema |
+| library            |
+| mysql              |
+| nepalbazer         |
+| performance_schema |
+| sakila             |
+| org           |
+| sys                |
+| world              |
++--------------------+
+11 rows in set (0.00 sec)
+
+mysql> use assignment;
+Database changed
+
+mysql> show tables;
++----------------------+
+| Tables_in_assignment |
++----------------------+
+| employee             |
+| incentives           |
++----------------------+
+2 rows in set (0.00 sec)
+
+mysql> -- Describe tables.?
+
+mysql> desc employee;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| EM_ID        | int          | NO   | PRI | NULL    | auto_increment |
+| FIRST_NAME   | varchar(35)  | NO   |     | NULL    |                |
+| LAST_NAME    | varchar(35)  | NO   |     | NULL    |                |
+| SALARY       | int          | NO   |     | NULL    |                |
+| JOINING_DATE | date         | NO   |     | NULL    |                |
+| DEPARTMENT   | varchar(100) | NO   |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> desc incentives;
++-----------------+------+------+-----+---------+----------------+
+| Field           | Type | Null | Key | Default | Extra          |
++-----------------+------+------+-----+---------+----------------+
+| incentive_id    | int  | NO   | PRI | NULL    | auto_increment |
+| EMPLOYEE_REF_ID | int  | YES  | MUL | NULL    |                |
+| INCENTIVE_DATE  | date | YES  |     | NULL    |                |
+| INCENTIVE_AMT   | int  | YES  |     | NULL    |                |
++-----------------+------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> -- Get First_Name from employee table using alias name “Employee Name”?
+
+mysql> select first_name as "Employee Name" from employee;
++---------------+
+| Employee Name |
++---------------+
+| JOHN          |
+| MICHAEL       |
+| ROY           |
+| TOM           |
+| JERRY         |
+| MD Meraj      |
+| JITU KUMAR    |
+| TESTNAME1     |
+| TESTNAME2     |
++---------------+
+9 rows in set (0.00 sec)
+
+mysql> --  Get FIRST_NAME, Joining year, Joining Month and Joining Date from employee table?
+
+mysql> select
+    -> first_name,
+    -> YEAR(joining_date) as Joining_Year,
+    -> MONTH(joining_date) as Joining_Month,
+    -> DATE(joining_date) as Joining_Date
+    -> from employee;
++------------+--------------+---------------+--------------+
+| first_name | Joining_Year | Joining_Month | Joining_Date |
++------------+--------------+---------------+--------------+
+| JOHN       |         2013 |             1 | 2013-01-01   |
+| MICHAEL    |         2013 |             1 | 2013-01-01   |
+| ROY        |         2013 |             1 | 2013-01-01   |
+| TOM        |         2013 |             1 | 2013-01-01   |
+| JERRY      |         2013 |             2 | 2013-02-01   |
+| MD Meraj   |         2013 |             3 | 2013-03-01   |
+| JITU KUMAR |         2013 |             4 | 2013-04-01   |
+| TESTNAME1  |         2013 |             2 | 2013-02-01   |
+| TESTNAME2  |         2013 |             5 | 2013-05-01   |
++------------+--------------+---------------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> --  Get FIRST_NAME, Joining year, Joining Month and Joining Date from employee table?
+
+mysql> select
+    -> first_name,
+    -> YEAR(joining_date) as Joining_Year,
+    -> MONTH(joining_date) as Joining_Month,
+    -> DAY(joining_date) as Joining_Date
+    -> from employee;
++------------+--------------+---------------+--------------+
+| first_name | Joining_Year | Joining_Month | Joining_Date |
++------------+--------------+---------------+--------------+
+| JOHN       |         2013 |             1 |            1 |
+| MICHAEL    |         2013 |             1 |            1 |
+| ROY        |         2013 |             1 |            1 |
+| TOM        |         2013 |             1 |            1 |
+| JERRY      |         2013 |             2 |            1 |
+| MD Meraj   |         2013 |             3 |            1 |
+| JITU KUMAR |         2013 |             4 |            1 |
+| TESTNAME1  |         2013 |             2 |            1 |
+| TESTNAME2  |         2013 |             5 |            1 |
++------------+--------------+---------------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> --  Get all employee details from the employee table order by First Name Ascending And Salary Descending?
+
+mysql> select * from employee
+    -> ORDER BY first_name ASC, salary DESC;
++-------+------------+-----------+---------+--------------+------------+
+| EM_ID | FIRST_NAME | LAST_NAME | SALARY  | JOINING_DATE | DEPARTMENT |
++-------+------------+-----------+---------+--------------+------------+
+|     5 | JERRY      | PINTO     |  650000 | 2013-02-01   | INSURANCE  |
+|     7 | JITU KUMAR | YADAV     |  850000 | 2013-04-01   | SERVICES   |
+|     1 | JOHN       | ABRAHAM   | 1000000 | 2013-01-01   | BANKING    |
+|     6 | MD Meraj   | AKHTAR    |  750000 | 2013-03-01   | SERVICES   |
+|     2 | MICHAEL    | CLERK     |  800000 | 2013-01-01   | INSURANCE  |
+|     3 | ROY        | THOMAS    |  700000 | 2013-01-01   | BANKING    |
+|     8 | TESTNAME1  | 123       |  900000 | 2013-02-01   | BANKING    |
+|     9 | TESTNAME2  | LNAME%    |  950000 | 2013-05-01   | INSURANCE  |
+|     4 | TOM        | JOSE      |  600000 | 2013-01-01   | INSURANCE  |
++-------+------------+-----------+---------+--------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> -- Get employee details from employee table whose first name contains „o‟.?
+
+mysql> SELECT * FROM EMPLOYEE
+    -> WHERE FIRST_NAME LIKE '%O%';
++-------+------------+-----------+---------+--------------+------------+
+| EM_ID | FIRST_NAME | LAST_NAME | SALARY  | JOINING_DATE | DEPARTMENT |
++-------+------------+-----------+---------+--------------+------------+
+|     1 | JOHN       | ABRAHAM   | 1000000 | 2013-01-01   | BANKING    |
+|     3 | ROY        | THOMAS    |  700000 | 2013-01-01   | BANKING    |
+|     4 | TOM        | JOSE      |  600000 | 2013-01-01   | INSURANCE  |
++-------+------------+-----------+---------+--------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> -- Get employee details from employee table whose joining month is “January”.?
+
+mysql> SELECT * FROM EMPLOYEE
+    -> WHERE MONTH(Joining_date) = 1;
++-------+------------+-----------+---------+--------------+------------+
+| EM_ID | FIRST_NAME | LAST_NAME | SALARY  | JOINING_DATE | DEPARTMENT |
++-------+------------+-----------+---------+--------------+------------+
+|     1 | JOHN       | ABRAHAM   | 1000000 | 2013-01-01   | BANKING    |
+|     2 | MICHAEL    | CLERK     |  800000 | 2013-01-01   | INSURANCE  |
+|     3 | ROY        | THOMAS    |  700000 | 2013-01-01   | BANKING    |
+|     4 | TOM        | JOSE      |  600000 | 2013-01-01   | INSURANCE  |
++-------+------------+-----------+---------+--------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> -- Get department, total salary with respect to a department from employee table Order By total salary descending.?
+
+mysql> SELECT DEPARTMENT, SUM(Salary) as 'Total Salary' FROM Employee
+    -> GROUP BY Department
+    -> ORDER BY 'Total Salary' DESC;
++------------+--------------+
+| DEPARTMENT | Total Salary |
++------------+--------------+
+| BANKING    |      2600000 |
+| INSURANCE  |      3000000 |
+| SERVICES   |      1600000 |
++------------+--------------+
+3 rows in set (0.01 sec)
+
+mysql> -- Get department wise maximum salary from employee table order by salary 	  Ascending.?
+
+mysql> SELECT Department, MAX(Salary) as 'Maximum Salary' from Employee
+    -> GROUP BY Department
+    -> ORDER BY 'Maximum Salary' ASC;
++------------+----------------+
+| Department | Maximum Salary |
++------------+----------------+
+| BANKING    |        1000000 |
+| INSURANCE  |         950000 |
+| SERVICES   |         850000 |
++------------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> -- Select first_name, incentive amount from employee and incentives table for those Employees who have incentives and incentive amount greater than 3000.?
+
+mysql> select * from incentives;
++--------------+-----------------+----------------+---------------+
+| incentive_id | EMPLOYEE_REF_ID | INCENTIVE_DATE | INCENTIVE_AMT |
++--------------+-----------------+----------------+---------------+
+|            1 |               1 | 2013-02-01     |          5000 |
+|            2 |               2 | 2013-02-01     |          3000 |
+|            3 |               3 | 2013-02-01     |          4000 |
+|            4 |               1 | 2013-03-01     |          4500 |
+|            5 |               2 | 2013-03-01     |          3500 |
++--------------+-----------------+----------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employees;
+ERROR 1146 (42S02): Table 'assignment.employees' doesn't exist
+
+mysql> select * from employee;
++-------+------------+-----------+---------+--------------+------------+
+| EM_ID | FIRST_NAME | LAST_NAME | SALARY  | JOINING_DATE | DEPARTMENT |
++-------+------------+-----------+---------+--------------+------------+
+|     1 | JOHN       | ABRAHAM   | 1000000 | 2013-01-01   | BANKING    |
+|     2 | MICHAEL    | CLERK     |  800000 | 2013-01-01   | INSURANCE  |
+|     3 | ROY        | THOMAS    |  700000 | 2013-01-01   | BANKING    |
+|     4 | TOM        | JOSE      |  600000 | 2013-01-01   | INSURANCE  |
+|     5 | JERRY      | PINTO     |  650000 | 2013-02-01   | INSURANCE  |
+|     6 | MD Meraj   | AKHTAR    |  750000 | 2013-03-01   | SERVICES   |
+|     7 | JITU KUMAR | YADAV     |  850000 | 2013-04-01   | SERVICES   |
+|     8 | TESTNAME1  | 123       |  900000 | 2013-02-01   | BANKING    |
+|     9 | TESTNAME2  | LNAME%    |  950000 | 2013-05-01   | INSURANCE  |
++-------+------------+-----------+---------+--------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> -- Select first_name, incentive amount from employee and incentives table for those Employees who have incentives and incentive amount greater than 3000.?
+
+mysql> select e.first_name, i.incentive_amt from employee e
+    -> join incentives i on e.em_id=i.employee_ref_id
+    -> where i.incentive_amt > 3000;
++------------+---------------+
+| first_name | incentive_amt |
++------------+---------------+
+| JOHN       |          5000 |
+| ROY        |          4000 |
+| JOHN       |          4500 |
+| MICHAEL    |          3500 |
++------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> -- Select 2nd Highest salary from employee table.?
+
+mysql> select distinct salary from employee
+    -> order by salary desc
+    -> limit 1 offset 1;
++--------+
+| salary |
++--------+
+| 950000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> -- Select first_name, incentive amount from employee and incentives table for all Employees who got incentives using left join.?
+
+mysql> select employee.first_name, incentives.incentive_amt from employee
+    -> left join incentives on employee.em_id=incentives.employee_ref_id;
++------------+---------------+
+| first_name | incentive_amt |
++------------+---------------+
+| JOHN       |          4500 |
+| JOHN       |          5000 |
+| MICHAEL    |          3500 |
+| MICHAEL    |          3000 |
+| ROY        |          4000 |
+| TOM        |          NULL |
+| JERRY      |          NULL |
+| MD Meraj   |          NULL |
+| JITU KUMAR |          NULL |
+| TESTNAME1  |          NULL |
+| TESTNAME2  |          NULL |
++------------+---------------+
+11 rows in set (0.00 sec)
+
+mysql> -- Create View OF Employee table in which store first name, last name and salary only.?
+
+mysql> create view EmployeeView as select first_name,last_name, salary from employee;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE PROCEDURE GetDepartmentWiseHighestSalary()
+    -> BEGIN
+    ->     SELECT Department, MAX(Salary) AS Max_Salary
+    ->     FROM employee
+    ->     GROUP BY Department;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+mysql> DELIMITER ;
+
+mysql> --  Create after Insert trigger on Employee table which insert records in view table.?
+
+mysql> DELIMITER //
+mysql> CREATE TRIGGER AfterEmployeeInsert
+    -> AFTER INSERT ON employee
+    -> FOR EACH ROW
+    -> BEGIN
+    ->     INSERT INTO EmployeeView (First_Name, Last_Name, Salary)
+    ->     VALUES (NEW.First_Name, NEW.Last_Name, NEW.Salary);
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER ;
